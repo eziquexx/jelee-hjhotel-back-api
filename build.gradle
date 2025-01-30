@@ -69,5 +69,13 @@ tasks.named('test') {
 
 tasks.withType(JavaCompile) {
     options.compilerArgs << "-parameters" // Java 컴파일러 -parameters 옵션 추가
+    options.encoding = 'UTF-8' // UTF-8 인코딩 설정 추가
+}
+
+// bootJar 설정 추가
+bootJar {
+    archiveBaseName = 'hjhotel-back'
+    version = '0.0.1'
+    mainClass = 'com.hjhotelback.HjhotelBackApplication'  // mainClass로 변경
 }
 

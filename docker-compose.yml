@@ -1,0 +1,14 @@
+version: '3'
+services:
+  springboot-app:
+    image: hjhotel-back
+    container_name: hjhotel-back-container
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge

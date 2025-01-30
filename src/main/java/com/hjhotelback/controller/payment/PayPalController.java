@@ -3,6 +3,7 @@ package com.hjhotelback.controller.payment;
 import java.net.URI;
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -38,6 +39,9 @@ public class PayPalController {
     private final OrderMapper orderMapper;
     private final PaymentMapper paymentMapper;
     private final ReservationService reservationService;
+    
+    @Value("${frontend.user-url}")
+    private String baseUrl;
     
     // 24.11.29 지은 [완료] : order(주문서), payment(결제내역) 생성 완료.
     @GetMapping("/checkout/{reservationId}")
@@ -76,8 +80,8 @@ public class PayPalController {
              		reservationItem.getTotalAmount(),
                      "USD",
                      "Payment for " + reservationItem.getName(),
-                     "http://localhost:8080/api/users/paypal/cancel",
-                     "http://localhost:8080/api/users/paypal/success"
+                     baseUrl + "/api/users/paypal/cancel",
+                     baseUrl + "/api/users/paypal/success"
              );
              order.setPaypalOrderId(payment.getId());
              orderMapper.insert(order);
