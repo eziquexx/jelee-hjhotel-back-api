@@ -90,7 +90,7 @@
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 - Java 17
-- Spring Boot 3.x
+- Spring Boot 3.3.5
 - Spring Security + JWT
 - MyBatis
 - MySQL
