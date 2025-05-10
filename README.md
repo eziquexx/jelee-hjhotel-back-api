@@ -3,8 +3,8 @@
 본인이 별도로 정리하여 업로드한 저장소입니다.
 <br><br>
 사용자 페이지(User Page) 및 관리자 페이지(Admin Page)는 아래 별도 레포지토리에서 확인할 수 있습니다:<br><br>
-👉 [사용자 페이지 레포지토리 이동하기](#) <br>
-👉 [관리자 페이지 레포지토리 이동하기](#) <br>
+👉 [사용자 페이지 레포지토리 이동하기](https://github.com/eziquexx/jelee-hjhotel-front-user) <br>
+👉 [관리자 페이지 레포지토리 이동하기](https://github.com/eziquexx/jelee-hjhotel-front-admin) <br>
 
 <br>
 
