@@ -45,6 +45,9 @@ public class PayPalController {
     @Value("${frontend.base-url}")
     private String baseUrl;
     
+    @Value("${backend.base-url}")
+    private String backUrl;
+    
     // 24.11.29 지은 [완료] : order(주문서), payment(결제내역) 생성 완료.
     @GetMapping("/checkout/{reservationId}")
     public String checkout(@PathVariable("reservationId") Integer reservationId,
@@ -84,8 +87,8 @@ public class PayPalController {
                      "Payment for " + reservationItem.getName(),
 //                     "http://localhost:8080/api/users/paypal/cancel",
 //                     "http://localhost:8080/api/users/paypal/success"
-                     baseUrl + "/api/users/paypal/cancel",
-                     baseUrl + "/api/users/paypal/success"
+                     backUrl + "/api/users/paypal/cancel",
+                     backUrl + "/api/users/paypal/success"
              );
              order.setPaypalOrderId(payment.getId());
              orderMapper.insert(order);
@@ -165,9 +168,10 @@ public class PayPalController {
             
             // 결제 성공시 해당 주소로 연결
 //            String testUrl = "http://localhost:3000/payment/success";
+            String successUrl = baseUrl + "/payment/success";
 
             return ResponseEntity.status(HttpStatus.FOUND)
-            					 .location(URI.create(baseUrl+"/payment/success"))
+            					 .location(URI.create(successUrl))
             					 .build();
             
         } catch (PayPalRESTException e) {
