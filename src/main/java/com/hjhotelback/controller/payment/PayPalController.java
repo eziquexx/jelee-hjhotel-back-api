@@ -2,6 +2,7 @@ package com.hjhotelback.controller.payment;
 
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,8 @@ public class PayPalController {
     private final PaymentMapper paymentMapper;
     private final ReservationService reservationService;
     
-    @Value("${frontend.user-url}")
+    //@Value("${frontend.user-url}")
+    @Value("${frontend.base-url}")
     private String baseUrl;
     
     // 24.11.29 지은 [완료] : order(주문서), payment(결제내역) 생성 완료.
@@ -80,6 +82,8 @@ public class PayPalController {
              		reservationItem.getTotalAmount(),
                      "USD",
                      "Payment for " + reservationItem.getName(),
+//                     "http://localhost:8080/api/users/paypal/cancel",
+//                     "http://localhost:8080/api/users/paypal/success"
                      baseUrl + "/api/users/paypal/cancel",
                      baseUrl + "/api/users/paypal/success"
              );
@@ -158,14 +162,13 @@ public class PayPalController {
             updateStatus.status = ReservationStatus.CONFIRMED;
             reservationService.updateReservationForAdmin(updateStatus);
             
-            // PayPal의 성공 URL을 그대로 반환
-            //String paypalRedirectUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=" + token;
+            
+            // 결제 성공시 해당 주소로 연결
+//            String testUrl = "http://localhost:3000/payment/success";
 
-            // PayPal의 URL을 클라이언트로 리디렉션
-            //return ResponseEntity.status(HttpStatus.FOUND)
-            //					 .location(URI.create(paypalRedirectUrl))
-            //					 .build();
-            return ResponseEntity.ok("결제가 성공되었습니다.");
+            return ResponseEntity.status(HttpStatus.FOUND)
+            					 .location(URI.create(baseUrl+"/payment/success"))
+            					 .build();
             
         } catch (PayPalRESTException e) {
             // 에러 처리

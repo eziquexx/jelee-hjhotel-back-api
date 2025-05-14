@@ -102,6 +102,8 @@ public class AuthController {
         Map<String, String> responseBody = new HashMap<>();
         responseBody.put("userId", user.getUserId());
         responseBody.put("name", user.getName());
+        // 25.05.08 지은 : 예약페이지에 로그인한 사용자의 memberId 필요해서 추가함.
+        responseBody.put("memberId", String.valueOf(user.getMemberId()));
 //        responseBody.put("phone", user.getPhone());
 
         return ResponseEntity.ok(responseBody);
