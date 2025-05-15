@@ -27,12 +27,15 @@ public class StaffController {
 
     // 회원 전체 목록 조회
     @GetMapping("/member")
-    public ResponseEntity<PageResponseDTO<MemberDTO>> getMembers(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        PageResponseDTO<MemberDTO> result = memberService.getMembers(page, size);
-        return ResponseEntity.ok(result);
+    public List<Map<String, Object>> getAllMembers() {
+        return memberService.getAllMembers();
     }
+//    public ResponseEntity<PageResponseDTO<MemberDTO>> getMembers(
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "10") int size) {
+//        PageResponseDTO<MemberDTO> result = memberService.getMembers(page, size);
+//        return ResponseEntity.ok(result);
+//    }
 
     // 회원 상태 변경
     @PutMapping("/member/{id}/status")

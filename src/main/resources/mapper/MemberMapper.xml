@@ -48,9 +48,22 @@
     </delete>
 
 
+    <!-- Find All Members -->
+    <select id="findAllMembers" resultType="map">
+        SELECT
+            member_id,
+            user_id,
+            email,
+            name,
+            phone,
+            status,
+            is_active,
+            created_at,
+            updated_at
+        FROM member
+    </select>
 
-
-    <select id="findMembers" resultType="com.hjhotelback.dto.member.auth.MemberDTO">
+<!--     <select id="findMembers" resultType="com.hjhotelback.dto.member.auth.MemberDTO">
         SELECT
             member_id AS memberId,
             user_id AS userId,
@@ -63,9 +76,9 @@
             created_at AS createdAt,
             updated_at AS updatedAt
         FROM member
-        ORDER BY member_id DESC -- 정렬 기준 수정
+        ORDER BY member_id DESC  정렬 기준 수정
             LIMIT #{size} OFFSET #{offset}
-    </select>
+    </select> -->
 
     <select id="countMembers" resultType="int">
         SELECT COUNT(*)
