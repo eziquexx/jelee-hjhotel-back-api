@@ -66,16 +66,18 @@ public class StaffController {
         return staffService.findByStaffUserId(staffUserId);
     }
 
+    // 25.05.20 지은 : 컴파일 시 메서드 파라미터를 읽지 못해서 추가함.
     // 스태프 상태 변경
     @PutMapping("/staff/{staffId}/status")
-    public String updateStaffStatus(@PathVariable int staffId, @RequestParam("isActive") boolean isActive) {
+    public String updateStaffStatus(@PathVariable("staffId") int staffId, @RequestParam("isActive") boolean isActive) {
         staffService.updateStaffStatus(staffId, isActive);
         return "스태프 상태가 성공적으로 변경되었습니다.";
     }
 
+    // 25.05.20 지은 : 컴파일 시 메서드 파라미터를 읽지 못해서 추가함.
     // 스태프 삭제
     @DeleteMapping("/staff/{staffId}")
-    public String deleteStaff(@PathVariable int staffId) {
+    public String deleteStaff(@PathVariable("staffId") int staffId) {
         staffService.deleteStaff(staffId);
         return "스태프가 성공적으로 삭제되었습니다.";
     }
