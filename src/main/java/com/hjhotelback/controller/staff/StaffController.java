@@ -59,9 +59,10 @@ public class StaffController {
         return staffService.getAllStaff();
     }
 
+    // 25.05.20 지은 : 컴파일 시 메서드 파라미터를 읽지 못해서 추가함.
     // 스태프 상세 조회
     @GetMapping("/staff/{staffUserId}")
-    public StaffEntity getStaffByUserId(@PathVariable String staffUserId) {
+    public StaffEntity getStaffByUserId(@PathVariable("staffUserId")  String staffUserId) {
         return staffService.findByStaffUserId(staffUserId);
     }
 
