@@ -64,4 +64,7 @@ public interface PaymentMapper {
 	
 	// 24.12.08 지은 [완료] : paypal 특정 주문서 상태 업데이트 내용 저장
 	int updatePaymentPaypalStatus(Order order);
+	
+	// 25.05.22 지은 [완료] : 예약관리에서 예약 삭제시 결제내역 먼저 삭제 필요. - reservationId로 결제 내역 전체 가져오기.
+	PaymentDTO getPaymentByReservationId(@Param("reservationId") Integer reservationId);
 }

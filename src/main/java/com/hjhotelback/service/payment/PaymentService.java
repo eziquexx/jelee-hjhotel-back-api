@@ -124,4 +124,28 @@ public class PaymentService {
 	public Order getPaymentByPaypalId(Integer id) {
 		return paymentMapper.getPaymentByPaypalId(id);
 	}
+	
+	// 25.05.22 지은 [완료] : 예약관리에서 예약 삭제시 결제내역 먼저 삭제 필요.
+	public boolean deletePaymentReservation(Integer reservationId) {
+		PaymentDTO paymentDTO = paymentMapper.getPaymentByReservationId(reservationId);
+		// if문. reservationId 없으면 false값. 있으면 삭제 진행
+		if (paymentDTO == null) {
+	        return false;  // 결제 정보가 존재하지 않으면 삭제할 수 없음
+	    }
+		
+		// 결제 삭제
+	    int deletedCount = paymentMapper.deletePayment(paymentDTO.getPaymentId()); 
+	    
+		// Paypal 주문 삭제
+	    int deletedPaypalCount = paymentMapper.deletePaypalOrder(paymentDTO.getOrderId());
+	    
+	    // 트랜잭션 롤백을 위해, 둘 다 삭제되었는지 체크
+	    if (deletedCount > 0 && deletedPaypalCount > 0) {
+	        return true;
+	    } else {
+	        // 만약 둘 중 하나라도 삭제되지 않았다면 롤백 처리
+	        throw new RuntimeException("Deletion failed for either payment or paypal order");
+	    }
+
+	}
 }

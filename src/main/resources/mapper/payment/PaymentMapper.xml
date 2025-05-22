@@ -185,4 +185,9 @@
 		FROM orders
 		WHERE id = #{id};
 	</select>
+	
+	<!-- 25.05.22 지은 [완료] : 예약관리에서 예약 삭제시 결제내역 먼저 삭제 필요. - reservationId로 결제 내역 전체 가져오기. -->
+	<select id="getPaymentByReservationId" parameterType="com.hjhotelback.dto.payment.PaymentDTO">
+		SELECT * FROM payment WHERE reservation_id = #{reservationId};
+	</select>
 </mapper>

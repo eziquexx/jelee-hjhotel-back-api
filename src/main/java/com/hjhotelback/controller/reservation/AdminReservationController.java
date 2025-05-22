@@ -3,6 +3,7 @@ package com.hjhotelback.controller.reservation;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hjhotelback.dto.reservation.ReqReservation;
 import com.hjhotelback.dto.reservation.ResReservation;
+import com.hjhotelback.mapper.payment.PaymentMapper;
+import com.hjhotelback.service.payment.PaymentService;
 import com.hjhotelback.service.reservation.ReservationService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,15 +27,31 @@ import lombok.RequiredArgsConstructor;
 public class AdminReservationController {
 
     private final ReservationService _service;
+    private final PaymentService paymentService;
+	private final PaymentMapper paymentMapper;
 
      @GetMapping
     public ResReservation.Detail GETReservationDetail(@RequestParam("id") int reservationId){
         return _service.getReservationDetail(reservationId);
     }
 
+    // 25.05.22 지은 [수정] : 예약관리에서 예약 삭제시 결제내역 먼저 삭제 필요.
     @DeleteMapping
-    public void DELETECancelReservation(@RequestBody ReqReservation.Delete req){
-        _service.cancelReservation(req);
+    public ResponseEntity<Void> DELETECancelReservation(@RequestBody ReqReservation.Delete req){
+    	Integer reservationId = req.reservationId;
+    	
+    	try {
+    		boolean isDeleted = paymentService.deletePaymentReservation(reservationId);
+    		if (isDeleted) {
+    			_service.cancelReservation(req);
+    			return ResponseEntity.noContent().build();
+    		} else {
+    			return ResponseEntity.notFound().build();
+    		}
+    		
+    	} catch (RuntimeException e) {
+    		return ResponseEntity.notFound().build();
+    	}
         
     }
 
