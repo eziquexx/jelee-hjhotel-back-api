@@ -9,10 +9,6 @@
 
 <br>
 
-:star: [JELEE Notion (Click!)](https://dev-jelee.notion.site/dev-jelee-5686cfa35c1b4c859a27de25d5fad5dd?pvs=4) 로 이동하면 해당 프로젝트 또는 다른 프로젝트의 내용과 저의 이력서를 볼 수 있습니다. :star:
-
-<br>
-
 ## :speech_balloon: 프로젝트 소개
 **Hotel PMS Back-end API**입니다.<br>
 이 프로젝트는 호텔 예약 및 관리를 위한 웹 기반 시스템입니다. 사용자와 관리자를 위한 별도의 페이지를 제공하며, 예약, 결제, 객실 관리 등의 기능을 포함합니다. <br>
